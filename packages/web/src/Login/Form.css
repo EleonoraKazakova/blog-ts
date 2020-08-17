@@ -1,0 +1,25 @@
+.Form{
+    width: 200px;
+    background-color: cadetblue;
+    border-style: double;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Form-button{
+    border-radius: 4px;
+    border: 1px solid white;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.Form-input{
+    margin-bottom: 10px;
+}
+
+.Form-title{
+    margin: 10px;
+}
