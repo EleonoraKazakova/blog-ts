@@ -1,0 +1,7 @@
+.LoginButton-button{
+    margin-top: 10px;
+    background-color: cadetblue;
+    border-style: double;
+    padding: 3px;
+    cursor: pointer;
+}

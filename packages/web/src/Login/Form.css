@@ -14,6 +14,14 @@
     border: 1px solid white;
     width: 100px;
     margin-top: 10px;
+    cursor: pointer;
+}
+
+.Form-button-registration{
+    text-decoration: underline;
+    margin-top: 7px;
+    font-size: small;
+    cursor: pointer;
 }
 
 .Form-input{
