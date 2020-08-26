@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Form.css'
+import { User } from '../types'
 
-function Form() {
-    const [registration, setRegistration] = useState(false)
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
-    const [done, setDone] = useState(false)
+function Form(props: { setUser: (arg: User | null) => void }) {
+    const [registration, setRegistration] = useState<boolean>(false)
+    const [userName, setUserName] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [done, setDone] = useState<boolean>(false)
 
     useEffect(() => {
         const requestOptions = {
@@ -13,9 +14,14 @@ function Form() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: userName, password })
         };
-        if (done) { 
-            fetch('http://localhost:3333/registration', requestOptions)
-            setDone(false) 
+        if (done) {
+            const makeRequest = async () => {
+                const user: User = await (await fetch('http://localhost:3333/registration', requestOptions))
+                    .json()
+                props.setUser(user)
+            }
+            makeRequest()
+            setDone(false)
         }
     }, [done])
 

@@ -14,7 +14,7 @@ app.get('/',(req, res)=>{
 
 app.post('/registration',(req, res)=>{
 	users[req.body.username] = req.body.password
-	res.json({users})
+	res.json({username: req.body.username})
 });
 
 app.listen(3333);

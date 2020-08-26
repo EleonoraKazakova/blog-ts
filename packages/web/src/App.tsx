@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {User} from './types'
 
 import LoginButton from './Login/LoginButton'
 
 function App() {
+  const[user, setUser] : [ User | null, (arg: User | null) => void] = useState<User | null>(null)
+
   return (
     <div className="App">
       <header className="App-header">
-        <LoginButton />
+        <div>{ user ? user.username : null }</div>
+
+        <LoginButton setUser={setUser}/>
        
         <img src={logo} className="App-logo" alt="logo" />
         <p>
