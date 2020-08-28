@@ -6,19 +6,26 @@ function Form(props: { setUser: (arg: User | null) => void }) {
     const [registration, setRegistration] = useState<boolean>(false)
     const [userName, setUserName] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [done, setDone] = useState<boolean>(false)
-
+    const [done, setDone] = useState<boolean>(false)//we use 'done' to make request to backend
+    
     useEffect(() => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: userName, password })
         };
+
+        const endpoint = registration ? '/registration' : '/login'  
+
         if (done) {
             const makeRequest = async () => {
-                const user: User = await (await fetch('http://localhost:3333/registration', requestOptions))
-                    .json()
-                props.setUser(user)
+                const response = await fetch(`http://localhost:3333${endpoint}`, requestOptions)
+                if( response.status >= 200 && response.status <= 299){
+                    const user: User = await response.json()
+                    props.setUser(user) //write the response from backend after async-await-calling 
+                } else {
+                    console.log(response.status, await response.text())
+                }
             }
             makeRequest()
             setDone(false)
@@ -34,7 +41,7 @@ function Form(props: { setUser: (arg: User | null) => void }) {
 
             <label>User name</label>
             <input
-                onChange={(event) => setUserName(event.target.value)}
+                onChange={(event) => setUserName(event.target.value)}//we write value in setUserName from input
                 className='Form-input'
                 type='text'
                 required
